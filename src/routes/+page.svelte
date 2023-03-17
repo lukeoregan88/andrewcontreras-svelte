@@ -40,7 +40,7 @@
 		<span>Andrew Contreras Gibson</span>
 	</div>
 	{#if video.url}
-		<video autoplay muted loop>
+		<video autoplay muted loop playsinline>
 			<source src={video.url} type="video/mp4" />
 			Your browser does not support the video tag.
 			<track kind="captions" />

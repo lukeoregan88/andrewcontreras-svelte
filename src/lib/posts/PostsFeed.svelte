@@ -124,7 +124,7 @@
 					{/if}
 				</div>
 				{#if post.acf.posts__overlay_video}
-					<video muted loop class="autoplay">
+					<video autoplay muted loop playsinline class="autoplay">
 						<source src={post.acf.posts__overlay_video.url} type="video/mp4" />
 						Your browser does not support the video tag.
 						<track kind="captions" />
