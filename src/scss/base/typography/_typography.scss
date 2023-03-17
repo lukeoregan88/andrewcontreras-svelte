@@ -1,0 +1,13 @@
+body,
+button,
+input,
+select,
+optgroup,
+textarea {
+	color: #ffffff;
+	font-family: sans-serif;
+	font-size: 1rem;
+}
+
+@import 'headings';
+@import 'copy';

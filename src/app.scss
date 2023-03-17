@@ -1,0 +1,8 @@
+/* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */ /* Import only what you need from Bootstrap */
+
+//Laod Bootstrap
+@import 'bootstrap/scss/bootstrap-reboot';
+
+//Load custom styles
+
+@import 'scss/base/base';
