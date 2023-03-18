@@ -7,6 +7,7 @@
 	export let limit = undefined;
 	export let exclude = undefined;
 	export let orderby = undefined;
+	let muted = true;
 	/**
 	 * @type {string | undefined}
 	 */
@@ -124,7 +125,7 @@
 					{/if}
 				</div>
 				{#if post.acf.posts__overlay_video}
-					<video autoplay muted loop playsinline class="autoplay">
+					<video autoplay loop playsinline class="autoplay" bind:muted>
 						<source src={post.acf.posts__overlay_video.url} type="video/mp4" />
 						Your browser does not support the video tag.
 						<track kind="captions" />
@@ -145,12 +146,13 @@
 		.post {
 			width: 100%;
 			height: 100%;
-			aspect-ratio: 16/9;
+			aspect-ratio: 1;
 			background: #000;
 			position: relative;
 			//every third child
 			@media (min-width: 992px) {
 				width: 50%;
+				aspect-ratio: 16/9;
 			}
 			.post-link {
 				position: absolute;

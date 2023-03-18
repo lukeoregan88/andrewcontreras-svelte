@@ -9,7 +9,8 @@ section {
 			display: flex;
 			align-items: center;
 			display: flex;
-			height: calc(90vh - 2.76042vw);
+			min-height: calc(90vh - 2.76042vw);
+			height: auto;
 			justify-content: center;
 			gap: 3rem;
 			flex-direction: column;

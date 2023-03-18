@@ -7,8 +7,20 @@
 	export let data;
 	const page = data.data[0];
 
-	let video = page.acf.homepage_video;
+	/**
+	 * @type {{ play: () => void; }}
+	 */
+	let video;
+	let hvideo = page.acf.homepage_video;
 	let reel = page.acf.homepage_reel;
+	let muted = true;
+	let volume = 0;
+	// @ts-ignore
+
+	function playVideo() {
+		video.play();
+	}
+
 	/**
 	 * @type {typeof import("$lib/posts/PostsFeed.svelte").default}
 	 */
@@ -39,9 +51,19 @@
 		<h1>Play The Reel</h1>
 		<span>Andrew Contreras Gibson</span>
 	</div>
-	{#if video.url}
-		<video autoplay muted loop playsinline>
-			<source src={video.url} type="video/mp4" />
+	{#if hvideo.url}
+		<video
+			bind:muted
+			bind:volume
+			bind:this={video}
+			on:canplay={playVideo}
+			autoplay
+			loop
+			playsinline
+			disablepictureinpicture
+			preload="true"
+		>
+			<source src={hvideo.url} type="video/mp4" />
 			Your browser does not support the video tag.
 			<track kind="captions" />
 		</video>
@@ -60,7 +82,7 @@
 	.homepage-lead {
 		width: 100vw;
 		height: calc(100vh - 54px);
-		min-height: 1000px;
+		min-height: calc(100vh - 54px);
 		max-width: 100%;
 		overflow: hidden;
 		position: relative;
@@ -69,7 +91,11 @@
 		display: flex;
 		align-items: flex-end;
 		justify-content: flex-start;
-		padding: 1rem 1rem 2rem 1rem;
+		padding: 1rem 1rem 4rem 1rem;
+		flex-direction: column;
+		@media (min-width: 768px) {
+			flex-direction: row;
+		}
 		.lead-title {
 			position: relative;
 			z-index: 10;
@@ -101,7 +127,7 @@
 			object-fit: cover;
 		}
 		.homepage-popup {
-			position: absolute;
+			position: relative;
 			top: 0;
 			left: 0;
 			z-index: 10;
@@ -110,16 +136,22 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: rgba(0, 0, 0, 0.434);
-			opacity: 0;
+			opacity: 1;
 			transition: opacity 0.3s ease-in-out;
+			@media (min-width: 768px) {
+				background: rgba(0, 0, 0, 0.434);
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0;
+				&:hover {
+					opacity: 1;
+				}
+			}
 			svg {
 				width: 100px;
 				fill: #fff;
 				cursor: pointer;
-			}
-			&:hover {
-				opacity: 1;
 			}
 		}
 	}
