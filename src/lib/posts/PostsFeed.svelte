@@ -4,10 +4,16 @@
 	/**
 	 * @type {any}
 	 */
+
 	export let limit = undefined;
 	export let exclude = undefined;
 	export let orderby = undefined;
+	/**
+	 * @type {HTMLVideoElement}
+	 */
+	let video;
 	let muted = true;
+	let volume = 0;
 	/**
 	 * @type {string | undefined}
 	 */
@@ -103,6 +109,10 @@
 			return [];
 		}
 	};
+
+	function playVideo() {
+		video.play();
+	}
 </script>
 
 {#await getPosts()}
@@ -125,7 +135,17 @@
 					{/if}
 				</div>
 				{#if post.acf.posts__overlay_video}
-					<video autoplay loop playsinline class="autoplay" bind:muted>
+					<video
+						bind:muted
+						bind:volume
+						bind:this={video}
+						on:canplay={playVideo}
+						autoplay
+						loop
+						playsinline
+						disablepictureinpicture
+						preload="true"
+					>
 						<source src={post.acf.posts__overlay_video.url} type="video/mp4" />
 						Your browser does not support the video tag.
 						<track kind="captions" />
