@@ -74,7 +74,7 @@
 				{/if}
 
 				<div class="project-details__description">
-					<p>{@html post.excerpt.rendered}</p>
+					<p>{@html post.content.rendered}</p>
 				</div>
 			</div>
 		</div>

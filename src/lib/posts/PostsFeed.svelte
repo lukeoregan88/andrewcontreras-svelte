@@ -8,6 +8,7 @@
 	export let limit = undefined;
 	export let exclude = undefined;
 	export let orderby = undefined;
+	export let categories = undefined;
 	/**
 	 * @type {HTMLVideoElement}
 	 */
@@ -20,25 +21,27 @@
 	export let feedClass = undefined;
 
 	//Query Base URL
-
 	let url = `${PUBLIC_WP_JSON_URL}wp-json/wp/v2/posts`;
 
 	//Query Params for GetPosts
-
 	if (feedClass) {
 		feedClass = 'loop ' + feedClass;
 	} else {
 		feedClass = 'loop';
 	}
 
+	if (categories) {
+		url += `?categories=${categories}`;
+	}
+
 	if (limit) {
-		url += `?per_page=${limit}`;
+		url += categories || orderby || exclude ? `&per_page=${limit}` : `?per_page=${limit}`;
 	}
 	if (exclude) {
-		url += limit || orderby ? `&exclude[]=${exclude}` : `?exclude[]s=${exclude}`;
+		url += limit || orderby || categories ? `&exclude[]=${exclude}` : `?exclude[]s=${exclude}`;
 	}
 	if (orderby) {
-		url += limit || exclude ? `&orderby=${orderby}` : `?orderby=${orderby}`;
+		url += limit || exclude || categories ? `&orderby=${orderby}` : `?orderby=${orderby}`;
 	}
 
 	/**
@@ -72,7 +75,7 @@
 		if (posts) {
 			const videos = document.querySelectorAll('video.autoplay');
 			observer = new IntersectionObserver(handleIntersection, {
-				threshold: 0.5 // play video when it's 50% within the viewport
+				threshold: 0.25 // play video when it's 50% within the viewport
 			});
 			videos.forEach((video) => {
 				// @ts-ignore
@@ -139,12 +142,11 @@
 						bind:muted
 						bind:volume
 						bind:this={video}
-						on:canplay={playVideo}
-						autoplay
 						loop
 						playsinline
 						disablepictureinpicture
 						preload="true"
+						class="autoplay"
 					>
 						<source src={post.acf.posts__overlay_video.url} type="video/mp4" />
 						Your browser does not support the video tag.

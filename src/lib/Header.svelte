@@ -188,6 +188,8 @@
 			color: #ffffff;
 			width: 100%;
 			text-align: center;
+			font-family: 'Gloock', serif;
+			text-transform: uppercase;
 		}
 
 		// .current_page_item > a,
