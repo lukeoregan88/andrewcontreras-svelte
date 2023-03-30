@@ -35,14 +35,20 @@
 	}
 
 	if (limit) {
-		url += categories || orderby || exclude ? `&per_page=${limit}` : `?per_page=${limit}`;
+		url += url.includes('?') ? `&per_page=${limit}` : `?per_page=${limit}`;
 	}
+
 	if (exclude) {
-		url += limit || orderby || categories ? `&exclude[]=${exclude}` : `?exclude[]s=${exclude}`;
+		url += url.includes('?') ? `&exclude[]=${exclude}` : `?exclude[]=${exclude}`;
 	}
+
 	if (orderby) {
-		url += limit || exclude || categories ? `&orderby=${orderby}` : `?orderby=${orderby}`;
+		url += url.includes('?') ? `&orderby=${orderby}` : `?orderby=${orderby}`;
 	}
+
+	url += '&_embed=wp:featuredmedia&_fields=id,title,acf,slug,_links.wp:featuredmedia,_embedded';
+
+	console.log(url);
 
 	/**
 	 * @type {any}
@@ -75,7 +81,7 @@
 		if (posts) {
 			const videos = document.querySelectorAll('video.autoplay');
 			observer = new IntersectionObserver(handleIntersection, {
-				threshold: 0.25 // play video when it's 50% within the viewport
+				threshold: 0.5 // play video when it's 50% within the viewport
 			});
 			videos.forEach((video) => {
 				// @ts-ignore
@@ -102,9 +108,9 @@
 			// @ts-ignore
 			postsCache = data.map((post) => ({
 				title: post.title.rendered,
-				excerpt: post.excerpt.rendered,
 				acf: post.acf,
-				slug: post.slug
+				slug: post.slug,
+				image: post._embedded['wp:featuredmedia'][0].source_url
 			}));
 			return postsCache;
 		} catch (error) {
@@ -113,9 +119,9 @@
 		}
 	};
 
-	function playVideo() {
-		video.play();
-	}
+	// function playVideo() {
+	// 	video.play();
+	// }
 </script>
 
 {#await getPosts()}
@@ -129,12 +135,14 @@
 					href="/projects/{post.slug}"
 					class="post-link"
 					data-sveltekit-noscroll
-					data-sveltekit-preload-data="hover">Click here to view video</a
+					data-sveltekit-preload-data="tap">Click here to view video</a
 				>
 				<div class="post-overlay">
 					<h2>{@html post.title}</h2>
 					{#if post.acf.posts__client}
 						<h3>{@html post.acf.posts__client}</h3>
+					{:else if post.acf.posts__video_type}
+						<h3>{@html post.acf.posts__video_type}</h3>
 					{/if}
 				</div>
 				{#if post.acf.posts__overlay_video}
@@ -147,6 +155,7 @@
 						disablepictureinpicture
 						preload="true"
 						class="autoplay"
+						poster={post.image}
 					>
 						<source src={post.acf.posts__overlay_video.url} type="video/mp4" />
 						Your browser does not support the video tag.
@@ -233,7 +242,7 @@
 			.post {
 				@media (min-width: 992px) {
 					width: 50%;
-					&:nth-child(3n + 1) {
+					&:nth-child(3n + 3) {
 						width: 100%;
 						aspect-ratio: 16/5;
 					}

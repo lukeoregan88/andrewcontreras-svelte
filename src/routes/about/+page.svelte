@@ -6,8 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>{page.yoast_head_json.title}</title>
-	<meta name="description" content={page.yoast_head_json.description} />
+	{@html page.yoast_head}
 </svelte:head>
 
 <Header />

@@ -3,9 +3,11 @@
 	import Header from '$lib/Header.svelte';
 	export let data;
 	const page = data.data[0];
-
-	console.log(page);
 </script>
+
+<svelte:head>
+	{@html page.yoast_head}
+</svelte:head>
 
 <Header />
 

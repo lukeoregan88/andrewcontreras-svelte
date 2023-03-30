@@ -7,6 +7,8 @@
 	export let data;
 	const page = data.data[0];
 
+	console.log(page);
+
 	/**
 	 * @type {{ play: () => void; }}
 	 */
@@ -33,6 +35,7 @@
 <svelte:head>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
 	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+	{@html page.yoast_head}
 </svelte:head>
 
 <div class="homepage-lead">
@@ -75,7 +78,7 @@
 <Header />
 
 <div class="content">
-	<svelte:component this={PostsFeed} limit={6} feedClass={'homepage'} />
+	<svelte:component this={PostsFeed} limit={9} orderby={'rand'} feedClass={'homepage'} />
 </div>
 
 <style lang="scss">

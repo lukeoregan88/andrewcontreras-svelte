@@ -5,6 +5,26 @@
 	const page = data.data[0];
 </script>
 
+<svelte:head>
+	{@html page.yoast_head}
+</svelte:head>
+
 <Header />
 
-{JSON.stringify(page)}
+<section class="page-content">
+	<div class="entry-content">
+		<div class="col">
+			<h1>{@html page.title.rendered}</h1>
+			{@html page.content.rendered}
+		</div>
+	</div>
+</section>
+
+<style lang="scss">
+	h1 {
+		font-size: 1em;
+		text-transform: uppercase;
+		opacity: 0.25;
+		display: none;
+	}
+</style>
