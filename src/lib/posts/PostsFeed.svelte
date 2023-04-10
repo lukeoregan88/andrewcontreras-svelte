@@ -21,7 +21,7 @@
 	export let feedClass = undefined;
 
 	//Query Base URL
-	let url = `${PUBLIC_WP_JSON_URL}wp-json/wp/v2/posts`;
+	let url = `${PUBLIC_WP_JSON_URL}wp-json/video_feeds/v1/videos`;
 
 	//Query Params for GetPosts
 	if (feedClass) {
@@ -31,7 +31,7 @@
 	}
 
 	if (categories) {
-		url += `?categories=${categories}`;
+		url += `?category=${categories}`;
 	}
 
 	if (limit) {
@@ -46,9 +46,9 @@
 		url += url.includes('?') ? `&orderby=${orderby}` : `?orderby=${orderby}`;
 	}
 
-	url += '&_embed=wp:featuredmedia&_fields=id,title,acf,slug,_links.wp:featuredmedia,_embedded';
+	//url += '&_embed=wp:featuredmedia&_fields=id,title,acf,slug,_links.wp:featuredmedia,_embedded';
 
-	console.log(url);
+	//console.log(url);
 
 	/**
 	 * @type {any}
@@ -81,7 +81,7 @@
 		if (posts) {
 			const videos = document.querySelectorAll('video.autoplay');
 			observer = new IntersectionObserver(handleIntersection, {
-				threshold: 0.5 // play video when it's 50% within the viewport
+				threshold: 0.33 // play video when it's 50% within the viewport
 			});
 			videos.forEach((video) => {
 				// @ts-ignore
@@ -90,9 +90,9 @@
 		}
 	});
 
-	onMount(async () => {
-		posts = await getPosts();
-	});
+	// onMount(async () => {
+	// 	posts = await getPosts();
+	// });
 
 	// @ts-ignore
 	const getPosts = async () => {
@@ -107,10 +107,12 @@
 			const data = await res.json();
 			// @ts-ignore
 			postsCache = data.map((post) => ({
-				title: post.title.rendered,
-				acf: post.acf,
+				title: post.title,
 				slug: post.slug,
-				image: post._embedded['wp:featuredmedia'][0].source_url
+				featured_image: post.featured_image,
+				posts__overlay_video: post.file_url,
+				posts__client: post.posts__client,
+				posts__video_type: post.posts__video_type
 			}));
 			return postsCache;
 		} catch (error) {
@@ -130,22 +132,16 @@
 	<div class={feedClass}>
 		{#each posts as post}
 			<div class="post">
-				<a
-					data-sveltekit-reload
-					href="/projects/{post.slug}"
-					class="post-link"
-					data-sveltekit-noscroll
-					data-sveltekit-preload-data="tap">Click here to view video</a
-				>
+				<a href="/projects/{post.slug}" class="post-link">Click here to view video</a>
 				<div class="post-overlay">
 					<h2>{@html post.title}</h2>
-					{#if post.acf.posts__client}
-						<h3>{@html post.acf.posts__client}</h3>
-					{:else if post.acf.posts__video_type}
-						<h3>{@html post.acf.posts__video_type}</h3>
+					{#if post.posts__client}
+						<h3>{@html post.posts__client}</h3>
+					{:else if post.posts__video_type}
+						<h3>{@html post.posts__video_type}</h3>
 					{/if}
 				</div>
-				{#if post.acf.posts__overlay_video}
+				{#if post.posts__overlay_video}
 					<video
 						bind:muted
 						bind:volume
@@ -155,9 +151,9 @@
 						disablepictureinpicture
 						preload="true"
 						class="autoplay"
-						poster={post.image}
+						poster={post.featured_image}
 					>
-						<source src={post.acf.posts__overlay_video.url} type="video/mp4" />
+						<source src={post.posts__overlay_video} type="video/mp4" />
 						Your browser does not support the video tag.
 						<track kind="captions" />
 					</video>
@@ -191,7 +187,7 @@
 				left: 0;
 				width: 100%;
 				height: 100%;
-				z-index: 10;
+				z-index: 20;
 				display: block;
 				opacity: 0;
 			}

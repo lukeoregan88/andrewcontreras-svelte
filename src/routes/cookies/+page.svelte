@@ -1,12 +1,15 @@
 <script>
 	/** @type {import('./$types').PageData} */
 	import Header from '$lib/Header.svelte';
+	import SEOHead from '$lib/components/SEOheader.svelte';
 	export let data;
 	const page = data.data[0];
 </script>
 
 <svelte:head>
-	{@html page.yoast_head}
+	{#key data}
+		<SEOHead {data} />
+	{/key}
 </svelte:head>
 
 <Header />

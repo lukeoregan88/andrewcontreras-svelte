@@ -3,9 +3,12 @@
 	import { onMount } from 'svelte';
 	import Header from '$lib/Header.svelte';
 	import { goBackOrHomepage } from '$lib/components/history.js';
+	import SEOHead from '$lib/components/SEOheader.svelte';
 	export let data;
+
 	let { post } = data;
 	post = post[0];
+
 	/**
 	 * @type {typeof import("$lib/posts/PostsFeed.svelte").default}
 	 */
@@ -31,7 +34,9 @@
 <svelte:head>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
 	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-	{@html post.yoast_head}
+	{#key post}
+		<SEOHead {post} />
+	{/key}
 </svelte:head>
 
 <article>
@@ -77,6 +82,11 @@
 				<div class="project-details__description">
 					<p>{@html post.content.rendered}</p>
 				</div>
+				{#if post.acf.posts__client}
+					<div class="project-details__client">
+						<h3>{@html post.acf.posts__client}</h3>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>

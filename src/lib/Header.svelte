@@ -109,7 +109,7 @@
 			}
 			.custom-logo {
 				width: 100px;
-				padding: 15px;
+				padding: 5px;
 				//filter: brightness(0) invert(1);
 				max-height: 70px;
 			}

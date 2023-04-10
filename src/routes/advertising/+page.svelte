@@ -4,4 +4,6 @@
 	export let data;
 </script>
 
-<Category {data} />
+{#key data}
+	<Category {data} />
+{/key}

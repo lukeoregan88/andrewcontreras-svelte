@@ -1,13 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import Header from '$lib/Header.svelte';
+	import SEOHead from '$lib/components/SEOheader.svelte';
 	/**
 	 * @type {any}
 	 */
 	export let data;
 	const page = data.data[0];
-
-	console.log(page);
 
 	/**
 	 * @type {{ play: () => void; }}
@@ -35,7 +34,9 @@
 <svelte:head>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
 	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-	{@html page.yoast_head}
+	{#key data}
+		<SEOHead {data} />
+	{/key}
 </svelte:head>
 
 <div class="homepage-lead">
@@ -51,7 +52,7 @@
 		</div>
 	{/if}
 	<div class="lead-title">
-		<h1>Play The Reel</h1>
+		<h1>Play Reel</h1>
 		<span>Andrew Contreras Gibson</span>
 	</div>
 	{#if hvideo.url}
