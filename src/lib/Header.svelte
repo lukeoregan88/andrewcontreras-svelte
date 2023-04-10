@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { onMount, onDestroy } from 'svelte';
-	import Logo from '$lib/images/ac_logo.svg';
+	import Logo from '$lib/images/ac_logo_invert.svg';
 
 	const navs = [
 		{
@@ -125,7 +125,9 @@
 		display: flex;
 		background-color: #000;
 		.site-branding {
-			background-color: #fff;
+			border: 1px solid #fff;
+			border-left: 0px;
+			background-color: #000;
 			width: 50%;
 			display: flex;
 			justify-content: center;
@@ -206,6 +208,9 @@
 				> a {
 					color: #000;
 				}
+			}
+			&:last-child {
+				border-right: 0;
 			}
 			@media screen and (max-width: 768px) {
 				border-left: 0;
