@@ -1,6 +1,6 @@
 <script>
 	import { PUBLIC_WP_JSON_URL } from '$env/static/public';
-	import { onMount, afterUpdate } from 'svelte';
+	import { afterUpdate } from 'svelte';
 	/**
 	 * @type {any}
 	 */
@@ -9,6 +9,10 @@
 	export let exclude = undefined;
 	export let orderby = undefined;
 	export let categories = undefined;
+	/**
+	 * @type {undefined}
+	 */
+	export let showCategories = undefined;
 	/**
 	 * @type {HTMLVideoElement}
 	 */
@@ -112,7 +116,8 @@
 				featured_image: post.featured_image,
 				posts__overlay_video: post.file_url,
 				posts__client: post.posts__client,
-				posts__video_type: post.posts__video_type
+				posts__video_type: post.posts__video_type,
+				category: post.category
 			}));
 			return postsCache;
 		} catch (error) {
@@ -134,6 +139,11 @@
 			<div class="post">
 				<a href="/projects/{post.slug}" class="post-link">Click here to view video</a>
 				<div class="post-overlay">
+					{#if showCategories}
+						{#if post.category}
+							<h4 class="cat">{@html post.category}</h4>
+						{/if}
+					{/if}
 					<h2>{@html post.title}</h2>
 					{#if post.posts__client}
 						<h3>{@html post.posts__client}</h3>
@@ -217,6 +227,11 @@
 					font-family: 'Sassy Frass', cursive;
 					line-height: 3.5rem;
 					font-size: clamp(2.5rem, 0.4231rem + 5.7692vw, 4rem);
+				}
+				h4.cat {
+					opacity: 0.5;
+					text-transform: uppercase;
+					letter-spacing: 2px;
 				}
 				// p {
 				// 	font-size: 1rem;

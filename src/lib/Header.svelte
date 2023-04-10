@@ -1,5 +1,7 @@
 <script>
 	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
+	import { onMount, onDestroy } from 'svelte';
 	import Logo from '$lib/images/ac_logo.svg';
 
 	const navs = [
@@ -36,6 +38,36 @@
 	function handleClick() {
 		menuOpen = !menuOpen;
 	}
+
+	// Set the height of the global-lead
+	//fallback is in css
+	let headerHeight;
+	let leadHeight;
+
+	const setLeadHeight = () => {
+		const header = document.querySelector('.site-header');
+		headerHeight = header.offsetHeight;
+		const homepageLead = document.querySelector('.global-lead');
+		if (homepageLead) {
+			const windowHeight = window.innerHeight;
+			leadHeight = windowHeight - headerHeight;
+			homepageLead.style.height = `${leadHeight}px`;
+		}
+	};
+
+	onMount(() => {
+		if (browser) {
+			setLeadHeight();
+			window.addEventListener('resize', setLeadHeight);
+			window.onload = setLeadHeight;
+		}
+	});
+
+	onDestroy(() => {
+		if (browser) {
+			window.removeEventListener('resize', setLeadHeight);
+		}
+	});
 </script>
 
 <div class="header-overlay">

@@ -28,6 +28,27 @@
 			projectVideo = tempDiv.querySelector('a').getAttribute('href') + '?start=1';
 		}
 	});
+
+	const wpTerms = post._embedded['wp:term'];
+	/**
+	 * @type {any[]}
+	 */
+	const roleNames = [];
+	/**
+	 * @type {any[]}
+	 */
+	const categoryName = [];
+
+	wpTerms.forEach((/** @type {any[]} */ terms) => {
+		terms.forEach((term) => {
+			if (term.taxonomy === 'post_roles') {
+				roleNames.push(term.name);
+			}
+			if (term.taxonomy === 'category') {
+				categoryName.push(term.name);
+			}
+		});
+	});
 </script>
 
 <svelte:head>
@@ -39,7 +60,7 @@
 </svelte:head>
 
 <article>
-	<div class="project-cover">
+	<div class="project-cover global-lead">
 		<button class="video-goback" on:click={goBackOrHomepage}>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
 				><path
@@ -69,6 +90,14 @@
 		{/if}
 		<div class="project-details">
 			<div class="project-details__inner">
+				{#if categoryName}
+					<div class="project-details__catgeory">
+						<h6>Category:</h6>
+						<ul>
+							<li>{categoryName[0]}</li>
+						</ul>
+					</div>
+				{/if}
 				<div class="project-details__title">
 					<h1>{@html post.title.rendered}</h1>
 				</div>
@@ -77,13 +106,23 @@
 						<h3>{@html post.acf.posts__client}</h3>
 					</div>
 				{/if}
+				{#if post.content.rendered}
+					<div class="project-details__description">
+						<p>{@html post.content.rendered}</p>
+					</div>
+				{/if}
 
-				<div class="project-details__description">
-					<p>{@html post.content.rendered}</p>
-				</div>
-				{#if post.acf.posts__client}
-					<div class="project-details__client">
-						<h3>{@html post.acf.posts__client}</h3>
+				{#if roleNames}
+					<div class="project-details__roles">
+						<ul>
+							<li>Roles:</li>
+							{#each roleNames as tag, i}
+								<li>
+									{tag}
+									{#if i < roleNames.length - 1},{/if}
+								</li>
+							{/each}
+						</ul>
 					</div>
 				{/if}
 			</div>
@@ -125,7 +164,7 @@
 <style lang="scss">
 	.project-cover {
 		min-height: 1000px;
-		height: calc(100vh - 54px);
+		height: calc(100vh - 70px);
 		width: 100%;
 		position: relative;
 		padding: 2rem;
@@ -133,7 +172,7 @@
 		align-items: flex-start;
 		flex-direction: column;
 		justify-content: flex-end;
-		padding-bottom: calc(2rem + 100px);
+		padding-bottom: calc(2rem + 70px);
 		gap: 2rem;
 		.poster {
 			width: 100%;
@@ -222,6 +261,39 @@
 			}
 			.project-details__description {
 				margin-top: 20px;
+			}
+			.project-details__catgeory {
+				opacity: 0.5;
+				h6 {
+					display: none;
+				}
+				ul {
+					display: flex;
+					list-style: none;
+					padding: 0;
+					margin: 0;
+					li {
+						text-transform: uppercase;
+						font-size: 2rem;
+					}
+				}
+			}
+			.project-details__roles {
+				opacity: 0.5;
+				ul {
+					display: flex;
+					list-style: none;
+					padding: 0;
+					margin: 0;
+					li {
+						text-transform: uppercase;
+						font-size: 1rem;
+						padding: 0 5px;
+						&:first-child {
+							padding-left: 0;
+						}
+					}
+				}
 			}
 		}
 	}

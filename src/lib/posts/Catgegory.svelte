@@ -34,7 +34,7 @@
 	{/key}
 </svelte:head>
 
-<div class="category-lead">
+<div class="category-lead global-lead">
 	<a href="/projects/{post.slug}">View {@html post.title.rendered}</a>
 	<div style="display: none;">
 		<h1>{@html catgeory.name}</h1>
@@ -77,8 +77,8 @@
 <style lang="scss">
 	.category-lead {
 		width: 100vw;
-		height: calc(100vh - 54px);
-		min-height: calc(100vh - 54px);
+		height: calc(100vh - 70px);
+		min-height: calc(100vh - 70px);
 		max-width: 100%;
 		overflow: hidden;
 		position: relative;

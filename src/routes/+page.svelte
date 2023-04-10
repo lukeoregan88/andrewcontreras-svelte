@@ -39,7 +39,7 @@
 	{/key}
 </svelte:head>
 
-<div class="homepage-lead">
+<div class="homepage-lead global-lead">
 	{#if reel.url}
 		<div class="homepage-popup">
 			<a data-fancybox href={reel.url} data-preload="false">
@@ -79,14 +79,20 @@
 <Header />
 
 <div class="content">
-	<svelte:component this={PostsFeed} limit={9} orderby={'rand'} feedClass={'homepage'} />
+	<svelte:component
+		this={PostsFeed}
+		limit={9}
+		orderby={'rand'}
+		feedClass={'homepage'}
+		showCategories="true"
+	/>
 </div>
 
 <style lang="scss">
 	.homepage-lead {
 		width: 100vw;
-		height: calc(100vh - 54px);
-		min-height: calc(100vh - 54px);
+		height: calc(100vh - 70px);
+		min-height: calc(100vh - 70px);
 		max-width: 100%;
 		overflow: hidden;
 		position: relative;
