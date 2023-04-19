@@ -232,6 +232,7 @@
 					opacity: 0.5;
 					text-transform: uppercase;
 					letter-spacing: 2px;
+					font-family: sans-serif;
 				}
 				// p {
 				// 	font-size: 1rem;
@@ -249,13 +250,24 @@
 				z-index: 0;
 			}
 		}
-		&.homepage {
+		&.homepage,
+		&.category {
 			.post {
 				@media (min-width: 992px) {
 					width: 50%;
 					&:nth-child(3n + 3) {
 						width: 100%;
 						aspect-ratio: 16/5;
+					}
+					// &:nth-child(3n + 1):last-child {
+					// 	width: 100%;
+					// 	aspect-ratio: 16/5;
+					// }
+					/* Select the 4th, 7th, 10th, and every third item after that if it's the last child, and its second last child */
+					&:nth-child(3n + 1):last-child,
+					&:not(:nth-child(3n + 1)):nth-last-child(2) {
+						width: 50%;
+						aspect-ratio: 16/9;
 					}
 				}
 			}

@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, afterUpdate } from 'svelte';
 	import Header from '$lib/Header.svelte';
 
 	export let data;
@@ -71,7 +71,12 @@
 <Header />
 
 <div class="content">
-	<svelte:component this={PostsFeed} categories={catgeory.id} exclude={post.id} />
+	<svelte:component
+		this={PostsFeed}
+		categories={catgeory.id}
+		exclude={post.id}
+		feedClass={'category'}
+	/>
 </div>
 
 <style lang="scss">

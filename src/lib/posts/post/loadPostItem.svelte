@@ -8,6 +8,8 @@
 	let { post } = data;
 	post = post[0];
 
+	console.log(post);
+
 	/**
 	 * @type {typeof import("$lib/posts/PostsFeed.svelte").default}
 	 */
@@ -68,9 +70,9 @@
 				/></svg
 			>
 		</button>
-		{#if post.acf.posts__video_embed}
+		{#if post.acf.posts__video}
 			<div class="video-popup">
-				<a data-fancybox data-type="iframe" href={projectVideo} data-preload="false">
+				<a data-fancybox href={post.acf.posts__video.url} data-preload="false">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
 						><path
 							d="M24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13V38.13zM56.34 66.35C51.4 63.33 45.22 63.21 40.17 66.04C35.13 68.88 32 74.21 32 80V432C32 437.8 35.13 443.1 40.17 445.1C45.22 448.8 51.41 448.7 56.34 445.7L344.3 269.7C349.1 266.7 352 261.6 352 256C352 250.4 349.1 245.3 344.3 242.3L56.34 66.35z"
@@ -163,7 +165,7 @@
 
 <style lang="scss">
 	.project-cover {
-		min-height: 1000px;
+		//min-height: 1000px;
 		height: calc(100vh - 70px);
 		width: 100%;
 		position: relative;
@@ -172,7 +174,7 @@
 		align-items: flex-start;
 		flex-direction: column;
 		justify-content: flex-end;
-		padding-bottom: calc(2rem + 70px);
+		padding-bottom: 3rem;
 		gap: 2rem;
 		.poster {
 			width: 100%;

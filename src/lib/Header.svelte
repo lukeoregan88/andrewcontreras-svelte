@@ -46,11 +46,13 @@
 
 	const setLeadHeight = () => {
 		const header = document.querySelector('.site-header');
+		// @ts-ignore
 		headerHeight = header.offsetHeight;
 		const homepageLead = document.querySelector('.global-lead');
 		if (homepageLead) {
 			const windowHeight = window.innerHeight;
 			leadHeight = windowHeight - headerHeight;
+			// @ts-ignore
 			homepageLead.style.height = `${leadHeight}px`;
 		}
 	};
