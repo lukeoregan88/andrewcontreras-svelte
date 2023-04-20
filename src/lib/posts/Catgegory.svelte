@@ -93,7 +93,7 @@
 		left: 0;
 		display: flex;
 		align-items: flex-end;
-		justify-content: flex-start;
+		justify-content: flex-end;
 		padding: 1rem 1rem 4rem 1rem;
 		flex-direction: column;
 		@media (min-width: 768px) {
