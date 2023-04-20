@@ -44,6 +44,8 @@
 		<h2>{@html post.title.rendered}</h2>
 		{#if post.acf.posts__client}
 			<span>{@html post.acf.posts__client}</span>
+		{:else if post.acf.posts__video_type}
+			<span>{@html post.acf.posts__video_type}</span>
 		{/if}
 	</div>
 

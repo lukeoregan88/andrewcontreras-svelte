@@ -35,8 +35,8 @@
 
 <style lang="scss">
 	.site-footer {
-		background-color: #ffffff;
-		color: #000000;
+		background-color: #000000;
+		color: #ffffff;
 		padding: 1rem 0 100px 0;
 		@media screen and (min-width: 768px) {
 			padding: 1rem 0;
