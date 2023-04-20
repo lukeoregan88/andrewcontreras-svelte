@@ -163,6 +163,7 @@
 			background-color: transparent;
 			border: none;
 			z-index: 300;
+			border: 1px solid #fff;
 			@media screen and (min-width: 768px) {
 				display: none;
 			}
