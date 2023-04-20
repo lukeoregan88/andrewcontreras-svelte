@@ -167,6 +167,7 @@
 	.project-cover {
 		//min-height: 1000px;
 		height: calc(100vh - 70px);
+		min-height: 900px;
 		width: 100%;
 		position: relative;
 		padding: 2rem;
@@ -176,6 +177,9 @@
 		justify-content: flex-end;
 		padding-bottom: 3rem;
 		gap: 2rem;
+		@media (min-width: 768px) {
+			min-height: none;
+		}
 		.poster {
 			width: 100%;
 			height: 100%;
