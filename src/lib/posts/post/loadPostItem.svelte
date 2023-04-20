@@ -8,7 +8,7 @@
 	let { post } = data;
 	post = post[0];
 
-	console.log(post);
+	//console.log(post);
 
 	/**
 	 * @type {typeof import("$lib/posts/PostsFeed.svelte").default}
