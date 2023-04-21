@@ -75,7 +75,7 @@
 <div class="header-overlay">
 	<header class="site-header">
 		<div class="site-branding">
-			<a href="/">
+			<a href="/" data-sveltekit-reload>
 				<img src={Logo} alt="Andrew Contreras" class="custom-logo" />
 			</a>
 		</div>
@@ -163,7 +163,8 @@
 			background-color: transparent;
 			border: none;
 			z-index: 300;
-			border: 1px solid #fff;
+			border-top: 1px solid #fff;
+			border-bottom: 1px solid #fff;
 			@media screen and (min-width: 768px) {
 				display: none;
 			}
