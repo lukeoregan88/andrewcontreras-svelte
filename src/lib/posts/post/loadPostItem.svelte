@@ -81,10 +81,18 @@
 				>
 			</div>
 		{/if}
-		{#if post._embedded['wp:featuredmedia']}
+		{#if post._embedded['wp:featuredmedia'][0].media_details.sizes.large}
 			<div class="poster">
 				<img
 					src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}
+					alt={post._embedded['wp:featuredmedia'][0].alt_text}
+					loading="lazy"
+				/>
+			</div>
+		{:else}
+			<div class="poster">
+				<img
+					src={post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url}
 					alt={post._embedded['wp:featuredmedia'][0].alt_text}
 					loading="lazy"
 				/>
@@ -145,10 +153,18 @@
 			</div>
 		</div>
 		<div class="col col--right">
-			{#if post._embedded['wp:featuredmedia']}
+			{#if post._embedded['wp:featuredmedia'][0].media_details.sizes.large}
 				<div class="featured-image">
 					<img
 						src={post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url}
+						alt={post._embedded['wp:featuredmedia'][0].alt_text}
+						loading="lazy"
+					/>
+				</div>
+			{:else}
+				<div class="featured-image">
+					<img
+						src={post._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url}
 						alt={post._embedded['wp:featuredmedia'][0].alt_text}
 						loading="lazy"
 					/>
