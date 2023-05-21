@@ -18,7 +18,33 @@
 	let PostsFeed;
 	onMount(async () => {
 		PostsFeed = (await import('$lib/posts/PostsFeed.svelte')).default;
+
+		if ('IntersectionObserver' in window) {
+			const lazyVideoObserver = new IntersectionObserver((entries, observer) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const videoElement = entry.target;
+						const sourceElement = videoElement.querySelector('source');
+						if (sourceElement) {
+							// @ts-ignore
+							sourceElement.src = sourceElement.dataset.src;
+							// @ts-ignore
+							videoElement.load();
+							// @ts-ignore
+							videoElement.play();
+							observer.unobserve(videoElement);
+						}
+					}
+				});
+			});
+
+			const lazyVideo = document.querySelector('video.lazy');
+			if (lazyVideo) {
+				lazyVideoObserver.observe(lazyVideo);
+			}
+		}
 	});
+
 	function playVideo() {
 		video.play();
 	}
@@ -51,6 +77,7 @@
 
 	{#if post.acf.posts__overlay_video}
 		<video
+			class="lazy"
 			bind:muted
 			bind:volume
 			bind:this={video}
@@ -60,8 +87,9 @@
 			playsinline
 			disablepictureinpicture
 			preload="true"
+			poster="/assets/images/placeholder.png"
 		>
-			<source src={post.acf.posts__overlay_video.url} type="video/mp4" />
+			<source data-src={post.acf.posts__overlay_video.url} type="video/mp4" />
 			Your browser does not support the video tag.
 			<track kind="captions" />
 		</video>

@@ -3,17 +3,17 @@ import { PUBLIC_WP_JSON_URL } from '$env/static/public';
 
 export const prerender = true;
 
-export async function load() {
-	const urls = [
-		'https://wp-admin.andrewcontreras.com/wp-json/wp/v2/categories?slug=music',
-		PUBLIC_WP_JSON_URL + 'wp-json/wp/v2/posts?categories=141&per_page=1'
-	];
+export async function load({ fetch }) {
+	const res1 = await fetch(
+		'https://wp-admin.andrewcontreras.com/wp-json/wp/v2/categories?slug=music'
+	);
+	const item1 = await res1.json();
 
-	const responses = await Promise.all(urls.map((url) => fetch(url)));
-	const results = await Promise.all(responses.map((response) => response.json()));
+	const res2 = await fetch(PUBLIC_WP_JSON_URL + 'wp-json/wp/v2/posts?categories=141&per_page=1');
+	const item2 = await res2.json();
 
 	return {
-		category: results[0],
-		data: results[1]
+		category: item1,
+		data: item2
 	};
 }

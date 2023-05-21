@@ -28,6 +28,31 @@
 	let PostsFeed;
 	onMount(async () => {
 		PostsFeed = (await import('$lib/posts/PostsFeed.svelte')).default;
+
+		if ('IntersectionObserver' in window) {
+			const lazyVideoObserver = new IntersectionObserver((entries, observer) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const videoElement = entry.target;
+						const sourceElement = videoElement.querySelector('source');
+						if (sourceElement) {
+							// @ts-ignore
+							sourceElement.src = sourceElement.dataset.src;
+							// @ts-ignore
+							videoElement.load();
+							// @ts-ignore
+							videoElement.play();
+							observer.unobserve(videoElement);
+						}
+					}
+				});
+			});
+
+			const lazyVideo = document.querySelector('video.lazy');
+			if (lazyVideo) {
+				lazyVideoObserver.observe(lazyVideo);
+			}
+		}
 	});
 </script>
 
@@ -57,6 +82,7 @@
 	</div>
 	{#if hvideo.url}
 		<video
+			class="lazy"
 			bind:muted
 			bind:volume
 			bind:this={video}
@@ -66,8 +92,9 @@
 			playsinline
 			disablepictureinpicture
 			preload="true"
+			poster="vlcsnap-2023-05-21-10h53m03s477.jpg"
 		>
-			<source src={hvideo.url} type="video/mp4" />
+			<source data-src={hvideo.url} type="video/mp4" />
 			Your browser does not support the video tag.
 			<track kind="captions" />
 		</video>
