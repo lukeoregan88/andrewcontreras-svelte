@@ -73,10 +73,6 @@
 	.entry-content {
 		position: relative;
 	}
-	.container {
-		position: relative;
-		overflow: hidden;
-	}
 
 	video {
 		position: absolute;

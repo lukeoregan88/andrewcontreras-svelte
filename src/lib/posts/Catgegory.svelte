@@ -87,7 +87,7 @@
 			playsinline
 			disablepictureinpicture
 			preload="true"
-			poster="/assets/images/placeholder.png"
+			poster="placeholder.png"
 		>
 			<source data-src={post.acf.posts__overlay_video.url} type="video/mp4" />
 			Your browser does not support the video tag.
@@ -167,34 +167,7 @@
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-		}
-		.homepage-popup {
-			position: relative;
-			top: 0;
-			left: 0;
-			z-index: 10;
-			width: 100%;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			opacity: 1;
-			transition: opacity 0.3s ease-in-out;
-			@media (min-width: 768px) {
-				background: rgba(0, 0, 0, 0.434);
-				position: absolute;
-				top: 0;
-				left: 0;
-				opacity: 0;
-				&:hover {
-					opacity: 1;
-				}
-			}
-			svg {
-				width: 100px;
-				fill: #fff;
-				cursor: pointer;
-			}
+			background: #000000;
 		}
 	}
 </style>
