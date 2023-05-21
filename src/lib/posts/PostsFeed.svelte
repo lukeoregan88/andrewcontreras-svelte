@@ -69,7 +69,19 @@
 		// @ts-ignore
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
-				entry.target.play();
+				const videoElement = entry.target;
+				const sourceElement = videoElement.querySelector('source');
+
+				if (sourceElement) {
+					// @ts-ignore
+					sourceElement.src = sourceElement.dataset.src;
+					// @ts-ignore
+					videoElement.load();
+					// @ts-ignore
+					videoElement.play();
+				}
+
+				//delete entry.target.dataset.src;
 			} else {
 				entry.target.pause();
 			}
@@ -163,7 +175,7 @@
 						class="autoplay"
 						poster={post.featured_image}
 					>
-						<source src={post.posts__overlay_video} type="video/mp4" />
+						<source data-src={post.posts__overlay_video} type="video/mp4" />
 						Your browser does not support the video tag.
 						<track kind="captions" />
 					</video>

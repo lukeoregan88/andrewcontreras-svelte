@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fancyapps/ui": "^5.0.17",
 		"autoprefixer": "^10.4.14"
 	}
 }

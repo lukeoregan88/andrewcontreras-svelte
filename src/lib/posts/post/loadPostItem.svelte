@@ -1,8 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import Header from '$lib/Header.svelte';
 	import { goBackOrHomepage } from '$lib/components/history.js';
 	import SEOHead from '$lib/components/SEOheader.svelte';
+	import { Fancybox } from '@fancyapps/ui';
+	import '@fancyapps/ui/dist/fancybox/fancybox.css';
+
 	export let data;
 
 	let { post } = data;
@@ -20,6 +24,12 @@
 	let projectVideo = undefined;
 
 	onMount(async () => {
+		if (browser) {
+			Fancybox.bind('[data-fancybox]', {
+				// Your options go here
+				defaultType: 'video'
+			});
+		}
 		PostsFeed = (await import('$lib/posts/PostsFeed.svelte')).default;
 
 		if (post.acf.posts__video_embed != null) {
@@ -54,8 +64,6 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
-	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 	{#key post}
 		<SEOHead {post} />
 	{/key}
