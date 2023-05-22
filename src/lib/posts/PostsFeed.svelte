@@ -72,16 +72,15 @@
 				const videoElement = entry.target;
 				const sourceElement = videoElement.querySelector('source');
 
-				if (sourceElement) {
+				if (sourceElement && !sourceElement.src) {
 					// @ts-ignore
 					sourceElement.src = sourceElement.dataset.src;
 					// @ts-ignore
 					videoElement.load();
-					// @ts-ignore
-					videoElement.play();
 				}
 
-				//delete entry.target.dataset.src;
+				// @ts-ignore
+				videoElement.play();
 			} else {
 				entry.target.pause();
 			}
