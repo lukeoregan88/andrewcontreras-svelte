@@ -5,7 +5,6 @@
 	import { goBackOrHomepage } from '$lib/components/history.js';
 	import SEOHead from '$lib/components/SEOheader.svelte';
 	import { Fancybox } from '@fancyapps/ui';
-	import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
 	export let data;
 
@@ -188,6 +187,7 @@
 </article>
 
 <style lang="scss">
+	@import '@fancyapps/ui/dist/fancybox/fancybox.css';
 	.project-cover {
 		//min-height: 1000px;
 		height: calc(100vh - 70px);
