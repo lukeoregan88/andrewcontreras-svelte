@@ -1,7 +1,7 @@
 {
 	"redirects": [
 		{
-			"source": "/art",
+			"source": "/art/",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
@@ -13,35 +13,35 @@
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "/emag",
+			"source": "/emag/",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "/growing-fashion",
+			"source": "/growing-fashion/",
 			"destination": "https://andrewcontreras.com/projects/growing-fashion"
 		},
 		{
-			"source": "/inciperem",
+			"source": "/inciperem/",
 			"destination": "https://andrewcontreras.com/projects/inciperem"
 		},
 		{
-			"source": "/jungle-brown-in-the-city",
+			"source": "/jungle-brown-in-the-city/",
 			"destination": "https://andrewcontreras.com/projects/jungle-brown-in-the-city"
 		},
 		{
-			"source": "/libre",
+			"source": "/libre/",
 			"destination": "https://andrewcontreras.com/projects/libre"
 		},
 		{
-			"source": "/london-postcode",
+			"source": "/london-postcode/",
 			"destination": "https://andrewcontreras.com/projects/london-postcode"
 		},
 		{
-			"source": "/my-city",
+			"source": "/my-city/",
 			"destination": "https://andrewcontreras.com/projects/my-city"
 		},
 		{
-			"source": "/siempre-soy",
+			"source": "/siempre-soy/",
 			"destination": "https://andrewcontreras.com/projects/siempre-soy"
 		},
 		{
@@ -49,17 +49,16 @@
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "/trevors-lift",
+			"source": "/trevors-lift/",
 			"destination": "https://andrewcontreras.com/projects/trevors-lift"
 		},
 		{
-			"source": "/women-and-home",
+			"source": "/women-and-home/",
 			"destination": "https://andrewcontreras.com/projects/women-and-home"
 		},
 		{
 			"source": "/wp-content/:path*",
 			"destination": "https://andrewcontreras.com"
 		}
-	],
-	"trailingSlash": true
+	]
 }
