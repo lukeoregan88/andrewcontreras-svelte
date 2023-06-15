@@ -15,8 +15,13 @@ export async function GET() {
 
 	const urlset = urls.map((url) => {
 		const { loc } = url;
+
+		// @ts-ignore
+		const regex = /(https:\/\/wp-admin\.andrewcontreras\.com\/)(?!wp-content\/uploads)/g;
+		const replacedLoc = loc.replace(regex, 'https://andrewcontreras.com/');
+
 		return `<url>
-      <loc>${loc}</loc>
+      <loc>${replacedLoc}</loc>
       <changefreq>daily</changefreq>
       <priority>0.7</priority>
     </url>`;
