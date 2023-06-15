@@ -63,6 +63,7 @@
 </script>
 
 <svelte:head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
 	{#key post}
 		<SEOHead {post} />
 	{/key}
@@ -187,7 +188,6 @@
 </article>
 
 <style lang="scss">
-	@import '@fancyapps/ui/dist/fancybox/fancybox.css';
 	.project-cover {
 		//min-height: 1000px;
 		height: calc(100vh - 70px);
