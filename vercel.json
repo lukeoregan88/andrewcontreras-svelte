@@ -5,59 +5,59 @@
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "https://andrewcontreras.com/author/:path*",
+			"source": "/author/:path*",
 			"destination": "https://andrewcontreras.com/about"
 		},
 		{
-			"source": "https://andrewcontreras.com/category/:path*",
+			"source": "/category/:path*",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "https://andrewcontreras.com/emag/",
+			"source": "/emag/",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "https://andrewcontreras.com/growing-fashion/",
+			"source": "/growing-fashion/",
 			"destination": "https://andrewcontreras.com/projects/growing-fashion"
 		},
 		{
-			"source": "https://andrewcontreras.com/inciperem/",
+			"source": "/inciperem/",
 			"destination": "https://andrewcontreras.com/projects/inciperem"
 		},
 		{
-			"source": "https://andrewcontreras.com/jungle-brown-in-the-city/",
+			"source": "/jungle-brown-in-the-city/",
 			"destination": "https://andrewcontreras.com/projects/jungle-brown-in-the-city"
 		},
 		{
-			"source": "https://andrewcontreras.com/libre/",
+			"source": "/libre/",
 			"destination": "https://andrewcontreras.com/projects/libre"
 		},
 		{
-			"source": "https://andrewcontreras.com/london-postcode/",
+			"source": "/london-postcode/",
 			"destination": "https://andrewcontreras.com/projects/london-postcode"
 		},
 		{
-			"source": "https://andrewcontreras.com/my-city/",
+			"source": "/my-city/",
 			"destination": "https://andrewcontreras.com/projects/my-city"
 		},
 		{
-			"source": "https://andrewcontreras.com/siempre-soy/",
+			"source": "/siempre-soy/",
 			"destination": "https://andrewcontreras.com/projects/siempre-soy"
 		},
 		{
-			"source": "https://andrewcontreras.com/tag/:path*",
+			"source": "/tag/:path*",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "https://andrewcontreras.com/trevors-lift/",
+			"source": "/trevors-lift/",
 			"destination": "https://andrewcontreras.com/projects/trevors-lift"
 		},
 		{
-			"source": "https://andrewcontreras.com/women-and-home/",
+			"source": "/women-and-home/",
 			"destination": "https://andrewcontreras.com/projects/women-and-home"
 		},
 		{
-			"source": "https://andrewcontreras.com/wp-content/:path*",
+			"source": "/wp-content/:path*",
 			"destination": "https://andrewcontreras.com"
 		}
 	]
