@@ -60,5 +60,6 @@
 			"source": "/wp-content/:path*",
 			"destination": "https://andrewcontreras.com"
 		}
-	]
+	],
+	"trailingSlash": true
 }
