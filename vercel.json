@@ -45,7 +45,7 @@
 			"destination": "https://andrewcontreras.com/projects/siempre-soy"
 		},
 		{
-			"source": "/:path((?!tag/).*)",
+			"source": "/tag/:path*",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
