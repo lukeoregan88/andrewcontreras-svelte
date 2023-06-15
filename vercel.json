@@ -1,5 +1,5 @@
 {
-	"rewrites": [
+	"redirects": [
 		{
 			"source": "/art/",
 			"destination": "https://andrewcontreras.com"
@@ -45,7 +45,7 @@
 			"destination": "https://andrewcontreras.com/projects/siempre-soy"
 		},
 		{
-			"source": "/tag/:path*",
+			"source": "/:path((?!tag/).*)",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
