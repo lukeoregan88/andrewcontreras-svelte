@@ -5,11 +5,11 @@
 			"destination": "https://andrewcontreras.com"
 		},
 		{
-			"source": "/author/:path*",
+			"source": "/author/:path*/",
 			"destination": "https://andrewcontreras.com/about"
 		},
 		{
-			"source": "/category/:path*",
+			"source": "/category/:path*/",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
@@ -45,7 +45,7 @@
 			"destination": "https://andrewcontreras.com/projects/siempre-soy"
 		},
 		{
-			"source": "/tag/:path*",
+			"source": "/tag/:path*/",
 			"destination": "https://andrewcontreras.com"
 		},
 		{
@@ -57,7 +57,7 @@
 			"destination": "https://andrewcontreras.com/projects/women-and-home"
 		},
 		{
-			"source": "/wp-content/:path*",
+			"source": "/wp-content/:path*/",
 			"destination": "https://andrewcontreras.com"
 		}
 	]
