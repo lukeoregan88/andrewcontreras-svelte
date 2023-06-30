@@ -63,7 +63,6 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
 	{#key post}
 		<SEOHead {post} />
 	{/key}
