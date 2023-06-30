@@ -1,7 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import Header from '$lib/Header.svelte';
 	import SEOHead from '$lib/components/SEOheader.svelte';
+	import { Fancybox } from '@fancyapps/ui';
 	/**
 	 * @type {any}
 	 */
@@ -27,6 +29,12 @@
 	 */
 	let PostsFeed;
 	onMount(async () => {
+		if (browser) {
+			Fancybox.bind('[data-fancybox]', {
+				// Your options go here
+				defaultType: 'video'
+			});
+		}
 		PostsFeed = (await import('$lib/posts/PostsFeed.svelte')).default;
 
 		if ('IntersectionObserver' in window) {
@@ -57,8 +65,6 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
-	<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 	{#key data}
 		<SEOHead {data} />
 	{/key}
