@@ -197,7 +197,7 @@
 		display: flex;
 		align-items: flex-start;
 		flex-direction: column;
-		justify-content: flex-end;
+		justify-content: flex-start;
 		padding-bottom: 3rem;
 		gap: 2rem;
 		@media (min-width: 768px) {
@@ -250,16 +250,15 @@
 			}
 		}
 		.video-popup {
-			//position: absolute;
 			z-index: 30;
-			top: 0;
-			left: 0;
-			display: flex;
-			aspect-ratio: 1;
-			width: 100%;
-			justify-content: center;
-			align-items: center;
-			height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      aspect-ratio: 1;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
 			svg {
 				fill: #fff;
 				width: 100px;

@@ -10,5 +10,9 @@ export default defineConfig({
 				additionalData: '@use "src/variables.scss" as *;'
 			}
 		}
+	},
+
+	ssr: {
+		noExternal: ['@fancyapps/ui']
 	}
 });

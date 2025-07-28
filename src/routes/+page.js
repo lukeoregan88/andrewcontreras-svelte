@@ -6,16 +6,31 @@ export const prerender = true;
 
 // @ts-ignore
 export async function load({ fetch }) {
-	const res = await fetch(PUBLIC_WP_JSON_URL + 'wp-json/wp/v2/pages?slug=home');
-	const data = await res.json();
+	try {
+		const res = await fetch(PUBLIC_WP_JSON_URL + 'wp-json/wp/v2/pages?slug=home');
 
-	if (!data.length) {
-		throw error(500, {
-			message: 'Page Error'
+		if (!res.ok) {
+			console.error(`Failed to fetch page data: ${res.status} ${res.statusText}`);
+			error(res.status, {
+				message: `Failed to load page: ${res.statusText}`
+			});
+		}
+
+		const data = await res.json();
+
+		if (!data || !Array.isArray(data) || data.length === 0) {
+			error(404, {
+				message: 'Page not found'
+			});
+		}
+
+		return {
+			data
+		};
+	} catch (err) {
+		console.error('Error loading page:', err);
+		error(500, {
+			message: 'Failed to load page data'
 		});
 	}
-
-	return {
-		data
-	};
 }
