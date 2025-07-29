@@ -1,8 +1,16 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import compression from 'vite-plugin-compression';
 
 export default defineConfig({
-	plugins: [sveltekit()],
+	plugins: [
+		sveltekit(),
+		compression({
+			algorithm: 'gzip',
+			ext: '.gz',
+			threshold: 1024
+		})
+	],
 
 	css: {
 		preprocessorOptions: {
@@ -26,9 +34,7 @@ export default defineConfig({
 			output: {
 				manualChunks: {
 					// Separate vendor chunks for better caching
-					vendor: ['@fancyapps/ui'],
-					// Separate Bootstrap if you use more components later
-					bootstrap: ['bootstrap']
+					vendor: ['@fancyapps/ui']
 				}
 			}
 		},
@@ -43,7 +49,8 @@ export default defineConfig({
 
 	// Optimise development server
 	server: {
-		// Enable compression in development
-		compress: true
+		// Development server optimisations
+		port: 5173,
+		host: true
 	}
 });

@@ -7,7 +7,13 @@ export const prerender = true;
 // @ts-ignore
 export async function load({ fetch }) {
 	try {
-		const res = await fetch(PUBLIC_WP_JSON_URL + 'wp-json/wp/v2/pages?slug=home');
+		// Optimised fetch with cache headers
+		const res = await fetch(PUBLIC_WP_JSON_URL + 'wp-json/wp/v2/pages?slug=home', {
+			headers: {
+				Accept: 'application/json',
+				'Cache-Control': 'max-age=300' // Cache for 5 minutes
+			}
+		});
 
 		if (!res.ok) {
 			console.error(`Failed to fetch page data: ${res.status} ${res.statusText}`);

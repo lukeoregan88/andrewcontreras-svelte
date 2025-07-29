@@ -1,4 +1,13 @@
 User-agent: *
 Disallow: 
 
+# Performance optimisations
+Allow: /_app/
+Allow: /favicon.ico
+Allow: /favicon.png
+Allow: /placeholder.png
+
+# Cache directives
+Crawl-delay: 1
+
 Sitemap: https://andrewcontreras.com/sitemap.xml

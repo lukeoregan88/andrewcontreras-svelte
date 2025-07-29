@@ -76,7 +76,7 @@
 	<header class="site-header">
 		<div class="site-branding">
 			<a href="/" data-sveltekit-reload>
-				<img src={Logo} alt="Andrew Contreras" class="custom-logo" />
+				<img src={Logo} alt="Andrew Contreras" class="custom-logo" width="90" height="60" />
 			</a>
 		</div>
 		<nav class="main-navigation">
