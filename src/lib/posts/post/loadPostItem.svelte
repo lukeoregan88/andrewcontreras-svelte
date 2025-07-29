@@ -251,14 +251,14 @@
 		}
 		.video-popup {
 			z-index: 30;
-      top: 0;
-      left: 0;
-      display: flex;
-      aspect-ratio: 1;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      height: 50vh;
+			top: 0;
+			left: 0;
+			display: flex;
+			aspect-ratio: 1;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+			height: 50vh;
 			svg {
 				fill: #fff;
 				width: 100px;
