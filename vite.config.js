@@ -14,5 +14,36 @@ export default defineConfig({
 
 	ssr: {
 		noExternal: ['@fancyapps/ui']
+	},
+
+	build: {
+		// Enable minification
+		minify: 'terser',
+		// Enable source maps for development only
+		sourcemap: false,
+		// Optimise chunk size
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					// Separate vendor chunks for better caching
+					vendor: ['@fancyapps/ui'],
+					// Separate Bootstrap if you use more components later
+					bootstrap: ['bootstrap']
+				}
+			}
+		},
+		// Enable compression
+		terserOptions: {
+			compress: {
+				drop_console: true,
+				drop_debugger: true
+			}
+		}
+	},
+
+	// Optimise development server
+	server: {
+		// Enable compression in development
+		compress: true
 	}
 });

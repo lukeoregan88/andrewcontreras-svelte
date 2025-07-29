@@ -3,13 +3,28 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<meta
+			name="description"
+			content="Andrew Contreras - Professional portfolio and creative work"
+		/>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link rel="preconnect" href="https://wp-admin.andrewcontreras.com/" crossorigin />
 		<link rel="dns-prefetch" href="https://wp-admin.andrewcontreras.com/" />
+		<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+		<!-- Preload critical resources -->
+		<link
+			rel="preload"
+			href="https://fonts.googleapis.com/css2?family=Gloock&family=Sassy+Frass&display=swap"
+			as="style"
+		/>
+		<link rel="preload" href="https://www.googletagmanager.com/gtm.js" as="script" />
+
+		<!-- Preload critical images -->
+		<link rel="preload" href="%sveltekit.assets%/favicon.png" as="image" type="image/png" />
 
 		<link
 			href="https://fonts.googleapis.com/css2?family=Gloock&family=Sassy+Frass&display=swap"
@@ -17,7 +32,7 @@
 		/>
 
 		<!-- Google Tag Manager -->
-		<script>
+		<script defer>
 			(function (w, d, s, l, i) {
 				w[l] = w[l] || [];
 				w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
