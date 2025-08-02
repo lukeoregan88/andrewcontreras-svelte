@@ -5,6 +5,10 @@
 			"destination": "https://andrewcontreras.com"
 		},
 		{
+			"source": "/videos/",
+			"destination": "https://andrewcontreras.com"
+		},
+		{
 			"source": "/author/:path*/",
 			"destination": "https://andrewcontreras.com/about"
 		},
@@ -51,6 +55,10 @@
 		{
 			"source": "/trevors-lift/",
 			"destination": "https://andrewcontreras.com/projects/trevors-lift"
+		},
+		{
+			"source": "/movida-corona/",
+			"destination": "https://andrewcontreras.com/projects/movida-corona"
 		},
 		{
 			"source": "/women-and-home/",
