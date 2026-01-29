@@ -101,7 +101,7 @@
 				playsinline
 				disablepictureinpicture
 				preload="true"
-				poster="vlcsnap-2023-05-21-10h53m03s477.webp"
+				poster="/vlcsnap-2023-05-21-10h53m03s477.webp"
 			>
 				<source data-src={hvideo.url} type="video/mp4" />
 				Your browser does not support the video tag.
