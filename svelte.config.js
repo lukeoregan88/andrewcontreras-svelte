@@ -8,9 +8,17 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			handleHttpError: ({ path, referrer, message }) => {
-				// Ignore 404s for API routes during prerender
+				// Ignore errors for API routes during prerender
 				if (path.startsWith('/api/')) {
 					console.warn(`API route ${path} returned an error during prerender: ${message}`);
+					return;
+				}
+				// Allow 500 errors during prerender - they might be due to external API unavailability
+				// The page will still be generated with empty data and fetch at runtime
+				if (message.includes('500')) {
+					console.warn(
+						`Page ${path} returned 500 during prerender (likely API unavailable): ${message}. Page will be generated with fallback data.`
+					);
 					return;
 				}
 				// For other errors, throw to fail the build

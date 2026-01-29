@@ -1,6 +1,6 @@
 /** @type {import('./$types').PageLoad} */
 import { error } from '@sveltejs/kit';
-import { building } from '$app/environment';
+import { prerendering } from '$app/environment';
 
 export const prerender = true;
 
@@ -18,10 +18,11 @@ export async function load({ fetch, depends }) {
 		});
 
 		if (!res.ok) {
-			// During build/prerender, return empty data instead of throwing error
-			if (building) {
+			// During prerender, return empty data instead of throwing error
+			// This allows the build to succeed even if the API is unavailable
+			if (prerendering) {
 				console.warn(
-					`API unavailable during build (${res.status}). Page will load data at runtime.`
+					`API unavailable during prerender (${res.status}). Page will load data at runtime.`
 				);
 				return {
 					data: []
@@ -37,9 +38,9 @@ export async function load({ fetch, depends }) {
 
 		// Handle API error response
 		if (data.error) {
-			// During build/prerender, return empty data instead of throwing error
-			if (building) {
-				console.warn(`API error during build: ${data.error}. Page will load data at runtime.`);
+			// During prerender, return empty data instead of throwing error
+			if (prerendering) {
+				console.warn(`API error during prerender: ${data.error}. Page will load data at runtime.`);
 				return {
 					data: []
 				};
@@ -51,9 +52,9 @@ export async function load({ fetch, depends }) {
 		}
 
 		if (!data || !Array.isArray(data) || data.length === 0) {
-			// During build/prerender, return empty data instead of throwing error
-			if (building) {
-				console.warn('No data available during build. Page will load data at runtime.');
+			// During prerender, return empty data instead of throwing error
+			if (prerendering) {
+				console.warn('No data available during prerender. Page will load data at runtime.');
 				return {
 					data: []
 				};
@@ -69,10 +70,11 @@ export async function load({ fetch, depends }) {
 	} catch (err) {
 		console.error('Error loading page:', err);
 
-		// During build/prerender, return empty data instead of throwing error
-		if (building) {
+		// During prerender, return empty data instead of throwing error
+		// This allows the build to succeed even if there's an error
+		if (prerendering) {
 			console.warn(
-				`Error during build: ${
+				`Error during prerender: ${
 					err instanceof Error ? err.message : 'Unknown error'
 				}. Page will load data at runtime.`
 			);
