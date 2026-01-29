@@ -1,4 +1,5 @@
 /** @type {import('./$types').PageLoad} */
+import { PUBLIC_WP_JSON_URL } from '$env/static/public';
 import { error } from '@sveltejs/kit';
 
 export const prerender = true;
@@ -9,8 +10,9 @@ export async function load({ fetch, depends }) {
 	depends('homepage-data');
 
 	try {
-		// Use API endpoint to avoid CORS issues
-		const res = await fetch('/api/pages?slug=home', {
+		// Fetch directly from WordPress API (works during prerender and at runtime)
+		// This matches the pattern used in other pages like about.js
+		const res = await fetch(`${PUBLIC_WP_JSON_URL}wp-json/wp/v2/pages?slug=home`, {
 			headers: {
 				Accept: 'application/json'
 			}
