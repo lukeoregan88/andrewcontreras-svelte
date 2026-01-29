@@ -1,5 +1,6 @@
 /** @type {import('./$types').PageLoad} */
 import { error } from '@sveltejs/kit';
+import { building } from '$app/environment';
 
 export const prerender = true;
 
@@ -17,6 +18,15 @@ export async function load({ fetch, depends }) {
 		});
 
 		if (!res.ok) {
+			// During build/prerender, return empty data instead of throwing error
+			if (building) {
+				console.warn(
+					`API unavailable during build (${res.status}). Page will load data at runtime.`
+				);
+				return {
+					data: []
+				};
+			}
 			console.error(`Failed to fetch page data: ${res.status} ${res.statusText}`);
 			error(res.status, {
 				message: `Failed to load page: ${res.statusText}`
@@ -27,6 +37,13 @@ export async function load({ fetch, depends }) {
 
 		// Handle API error response
 		if (data.error) {
+			// During build/prerender, return empty data instead of throwing error
+			if (building) {
+				console.warn(`API error during build: ${data.error}. Page will load data at runtime.`);
+				return {
+					data: []
+				};
+			}
 			console.error('API error:', data.error);
 			error(500, {
 				message: data.error
@@ -34,6 +51,13 @@ export async function load({ fetch, depends }) {
 		}
 
 		if (!data || !Array.isArray(data) || data.length === 0) {
+			// During build/prerender, return empty data instead of throwing error
+			if (building) {
+				console.warn('No data available during build. Page will load data at runtime.');
+				return {
+					data: []
+				};
+			}
 			error(404, {
 				message: 'Page not found'
 			});
@@ -44,6 +68,18 @@ export async function load({ fetch, depends }) {
 		};
 	} catch (err) {
 		console.error('Error loading page:', err);
+
+		// During build/prerender, return empty data instead of throwing error
+		if (building) {
+			console.warn(
+				`Error during build: ${
+					err instanceof Error ? err.message : 'Unknown error'
+				}. Page will load data at runtime.`
+			);
+			return {
+				data: []
+			};
+		}
 
 		// Distinguish between network errors and server errors
 		if (err instanceof TypeError && err.message === 'Failed to fetch') {

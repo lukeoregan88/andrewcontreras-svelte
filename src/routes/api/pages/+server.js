@@ -6,6 +6,12 @@ import { json } from '@sveltejs/kit';
  */
 export async function GET({ url: requestUrl }) {
 	try {
+		// Check if environment variable is set
+		if (!PUBLIC_WP_JSON_URL) {
+			console.error('PUBLIC_WP_JSON_URL is not set');
+			return json({ error: 'WordPress API URL not configured' }, { status: 500 });
+		}
+
 		const slug = requestUrl.searchParams.get('slug') || 'home';
 
 		const apiUrl = `${PUBLIC_WP_JSON_URL}wp-json/wp/v2/pages?slug=${slug}`;
