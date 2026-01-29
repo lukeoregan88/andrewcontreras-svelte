@@ -36,7 +36,6 @@
 	"type": "module",
 	"dependencies": {
 		"@fancyapps/ui": "^5.0.17",
-		"autoprefixer": "^10.4.14",
-		"caniuse-lite": "^1.0.30001727"
+		"autoprefixer": "^10.4.14"
 	}
 }

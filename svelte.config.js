@@ -30,7 +30,8 @@ const config = {
 	preprocess: [
 		preprocess({
 			scss: {
-				prependData: '@use "src/variables.scss" as *;'
+				prependData: '@use "src/variables.scss" as *;',
+				silenceDeprecations: ['legacy-js-api']
 			},
 			postcss: {
 				plugins: [autoprefixer]
