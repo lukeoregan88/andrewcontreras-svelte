@@ -1,5 +1,4 @@
 <script>
-	import { PUBLIC_WP_JSON_URL } from '$env/static/public';
 	import { afterUpdate } from 'svelte';
 	/**
 	 * @type {any}
@@ -24,8 +23,8 @@
 	 */
 	export let feedClass = undefined;
 
-	//Query Base URL
-	let url = `${PUBLIC_WP_JSON_URL}wp-json/video_feeds/v1/videos`;
+	//Query Base URL - use API endpoint to avoid CORS issues
+	let url = '/api/videos';
 
 	//Query Params for GetPosts
 	if (feedClass) {
@@ -114,12 +113,31 @@
 		if (postsCache) {
 			return postsCache;
 		}
+
+		if (!url) {
+			console.error('Cannot fetch posts: URL is not defined');
+			return [];
+		}
+
 		try {
-			const res = await fetch(url);
+			const res = await fetch(url, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json'
+				}
+			});
+
 			if (!res.ok) {
-				throw new Error(`Failed to fetch posts, status code: ${res.status}`);
+				throw new Error(`Failed to fetch posts: ${res.status} ${res.statusText}`);
 			}
+
 			const data = await res.json();
+
+			if (!Array.isArray(data)) {
+				console.error('Expected array but received:', typeof data);
+				return [];
+			}
+
 			// @ts-ignore
 			postsCache = data.map((post) => ({
 				title: post.title,
@@ -132,7 +150,15 @@
 			}));
 			return postsCache;
 		} catch (error) {
-			console.error(error);
+			console.error('Error fetching posts:', error);
+			console.error('Failed URL:', url);
+			if (error instanceof TypeError && error.message === 'Failed to fetch') {
+				console.error('This is likely a CORS issue or network error. Check:', {
+					url,
+					PUBLIC_WP_JSON_URL: PUBLIC_WP_JSON_URL,
+					'Is URL valid?': url.startsWith('http')
+				});
+			}
 			return [];
 		}
 	};
@@ -145,45 +171,51 @@
 {#await getPosts()}
 	<p>loading videos...</p>
 {:then posts}
-	<div class={feedClass}>
-		{#each posts as post}
-			<div class="post">
-				<a href="/projects/{post.slug}" class="post-link">Click here to view video</a>
-				<div class="post-overlay">
-					{#if showCategories}
-						{#if post.category}
-							<h4 class="cat">{@html post.category}</h4>
+	{#if posts && posts.length > 0}
+		<div class={feedClass}>
+			{#each posts as post}
+				<div class="post">
+					<a href="/projects/{post.slug}" class="post-link">Click here to view video</a>
+					<div class="post-overlay">
+						{#if showCategories}
+							{#if post.category}
+								<h4 class="cat">{@html post.category}</h4>
+							{/if}
 						{/if}
-					{/if}
-					<h2>{@html post.title}</h2>
-					{#if post.posts__client}
-						<h3>{@html post.posts__client}</h3>
-					{:else if post.posts__video_type}
-						<h3>{@html post.posts__video_type}</h3>
+						<h2>{@html post.title}</h2>
+						{#if post.posts__client}
+							<h3>{@html post.posts__client}</h3>
+						{:else if post.posts__video_type}
+							<h3>{@html post.posts__video_type}</h3>
+						{/if}
+					</div>
+					{#if post.posts__overlay_video}
+						<video
+							bind:muted
+							bind:volume
+							bind:this={video}
+							loop
+							playsinline
+							disablepictureinpicture
+							preload="true"
+							class="autoplay"
+							poster={post.featured_image}
+						>
+							<source data-src={post.posts__overlay_video} type="video/mp4" />
+							Your browser does not support the video tag.
+							<track kind="captions" />
+						</video>
+					{:else}
+						nada thing
 					{/if}
 				</div>
-				{#if post.posts__overlay_video}
-					<video
-						bind:muted
-						bind:volume
-						bind:this={video}
-						loop
-						playsinline
-						disablepictureinpicture
-						preload="true"
-						class="autoplay"
-						poster={post.featured_image}
-					>
-						<source data-src={post.posts__overlay_video} type="video/mp4" />
-						Your browser does not support the video tag.
-						<track kind="captions" />
-					</video>
-				{:else}
-					nada thing
-				{/if}
-			</div>
-		{/each}
-	</div>
+			{/each}
+		</div>
+	{:else}
+		<p>No videos available.</p>
+	{/if}
+{:catch error}
+	<p>Error loading videos. Please check the console for details.</p>
 {/await}
 
 <style lang="scss">
