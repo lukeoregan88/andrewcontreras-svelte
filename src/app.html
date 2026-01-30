@@ -13,7 +13,6 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link rel="preconnect" href="https://wp-admin.andrewcontreras.com/" crossorigin />
 		<link rel="dns-prefetch" href="https://wp-admin.andrewcontreras.com/" />
-		<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
 		<!-- Preload critical resources -->
 		<link
@@ -21,7 +20,6 @@
 			href="https://fonts.googleapis.com/css2?family=Gloock&family=Sassy+Frass&display=swap"
 			as="style"
 		/>
-		<link rel="preload" href="https://www.googletagmanager.com/gtm.js" as="script" />
 
 		<!-- Preload critical images -->
 		<link rel="preload" href="%sveltekit.assets%/favicon.png" as="image" type="image/png" />
@@ -30,21 +28,6 @@
 			href="https://fonts.googleapis.com/css2?family=Gloock&family=Sassy+Frass&display=swap"
 			rel="stylesheet"
 		/>
-
-		<!-- Google Tag Manager -->
-		<script defer>
-			(function (w, d, s, l, i) {
-				w[l] = w[l] || [];
-				w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-				var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s),
-					dl = l != 'dataLayer' ? '&l=' + l : '';
-				j.async = true;
-				j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-				f.parentNode.insertBefore(j, f);
-			})(window, document, 'script', 'dataLayer', 'GTM-5CJTMHW');
-		</script>
-		<!-- End Google Tag Manager -->
 
 		%sveltekit.head%
 	</head>
